@@ -18,6 +18,7 @@ S3_BUCKET="heroku-buildpack-nodejs"
 BUILD_DIR=$1
 CACHE_DIR=$2
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
+BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 
 function error() {
   echo " !     $*" >&2
@@ -147,6 +148,9 @@ SCONS_PACKAGE="http://${S3_BUCKET}.s3.amazonaws.com/scons-${SCONS_VERSION}.tgz"
 VENDORED_NODE="$(mktmpdir node)"
 VENDORED_NPM="$(mktmpdir npm)"
 VENDORED_SCONS="$(mktmpdir scons)"
+
+# Install bundler dependencies using language_pack
+$BIN_DIR/ruby_compile $BUILD_DIR $CACHE_DIR
 
 # download and unpack packages
 echo "-----> Fetching Node.js binaries"
