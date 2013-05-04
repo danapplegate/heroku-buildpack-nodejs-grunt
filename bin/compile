@@ -151,6 +151,8 @@ VENDORED_SCONS="$(mktmpdir scons)"
 
 # Install bundler dependencies using language_pack
 $BIN_DIR/ruby_compile $BUILD_DIR $CACHE_DIR
+PATH="$BUILD_DIR/vendor/bundle/bin:$PATH"
+export GEM_PATH="$BUILD_DIR/vendor/ruby/1.9.1:/usr/local/lib/ruby/1.9.1:$GEM_PATH"
 
 # download and unpack packages
 echo "-----> Fetching Node.js binaries"
